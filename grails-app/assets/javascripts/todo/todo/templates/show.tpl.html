@@ -1,0 +1,24 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a ui-sref="index" class="home">Home</a></li>
+        <li><a class="list" ui-sref="todo.list" class="list">Todo List</a></li>
+        <li><a class="create" ui-sref="todo.create" class="create">New Todo</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Todo</h1>
+    <ol class="property-list todo">
+  <li class="fieldcontain">
+    <span id="descricao-label" class="property-label">Descricao</span>
+    <div class="property-value" aria-labelledby="descricao-label">
+      <span>{{vm.todo.descricao}}</span>
+    </div>
+  </li>
+</ol>
+    <form ng-submit="vm.delete()">
+        <fieldset class="buttons">
+            <a class="edit" ui-sref="todo.edit({id: vm.todo.id})">Edit</a>
+            <input class="delete" type="submit" value="Delete" onclick="return confirm('Are you sure?');" />
+        </fieldset>
+    </form>
+</div>
