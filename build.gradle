@@ -83,13 +83,13 @@ bootRun {
 
 clientDependencies {
     npm {
-        'angular'('1.5.x', into: 'angular') {
+        'angular'('1.5.5', into: 'angular') {
             include 'angular.js'
         }
-        'angular-mocks'('1.5.x', into: 'angular') {
+        'angular-mocks'('1.5.5', into: 'angular') {
             include 'angular-mocks.js'
         }
-        'angular-resource'('1.5.x', into: 'angular') {
+        'angular-resource'('1.5.5', into: 'angular') {
             include 'angular-resource.js'
         }
         'angular-ui-bootstrap'('1.3.x', into: 'angular') {

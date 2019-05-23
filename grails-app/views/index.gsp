@@ -1,85 +1,81 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Welcome to Grails</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
-    <style type="text/css">
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
-    </style>
+    <title>Todo List Grails/AngularJS</title>
 
-    <asset:stylesheet src="application.css"/>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
-
-    <script type="text/javascript">
-        window.contextPath = "${request.contextPath}";
-    </script>
+    <!-- Custom styles for this template -->
 </head>
 
-<body ng-app="todo" ng-controller="IndexController as indexCtrl">
+<body>
 
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" ng-click="navExpanded = !navExpanded">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/#">
-                    <asset:image src="grails.svg" alt="Grails Logo"/>
-                </a>
-            </div>
-            <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;" uib-collapse="!navExpanded">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
-                        <ul class="dropdown-menu" uib-dropdown-menu>
-                            <li><a href="#">Environment: {{indexCtrl.applicationData.environment}}</a></li>
-                            <li><a href="#">App profile: {{indexCtrl.applicationData.appprofile}}</a></li>
-                            <li><a href="#">App version: {{indexCtrl.applicationData.appversion}}</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Grails version: {{indexCtrl.applicationData.grailsversion}}</a></li>
-                            <li><a href="#">Groovy version: {{indexCtrl.applicationData.groovyversion}}</a></li>
-                            <li><a href="#">JVM version: {{indexCtrl.applicationData.jvmversion}}</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Reloading active: {{indexCtrl.applicationData.reloadingagentenabled}}</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
-                        <ul class="dropdown-menu" uib-dropdown-menu>
-                            <li><a href="#">Controllers: {{indexCtrl.applicationData.artefacts.controllers}}</a></li>
-                            <li><a href="#">Domains: {{indexCtrl.applicationData.artefacts.domains}}</a></li>
-                            <li><a href="#">Services: {{indexCtrl.applicationData.artefacts.services}}</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
-                        <ul class="dropdown-menu" uib-dropdown-menu>
-                            <li ng-repeat="plugin in indexCtrl.applicationData.plugins"><a href="#">{{plugin.name}} - {{plugin.version}}</a></li>
-                        </ul>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Todo List Grails</a>
+
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <div ng-app="todo.todo" ng-controller="TodoController as vm">
+            <br><br><br><br><br><br>
+            <h1 style="text-align: center;">Todo List</h1>
+            <form class="todo-form" ng-submit="vm.saveTodo()" ontimeupdate="">
+                <input  name="descricao" id="descricao" ng-model="vm.todo.descricao" class="form-control form-control-lg" type="text" placeholder="
+O que precisa ser feito?"/>
+
+
+            </form>
+            <div id="list-todo" class="content scaffold-list" role="main" ng-cloak>
+
+                <ul class="list-group">
+                    <li ng-repeat="todo in vm.todoList" class="list-group-item">
+                        <div class="view">
+
+                            <label>{{todo.descricao}}</label>
+                            <button class="btn btn-primary" ng-click="vm.edit(todo.id)"><span class="glyphicon">&#x270f;</span></button>
+
+                            <button class="btn btn-danger" ng-click="vm.delete(todo)"><span class="glyphicon">&#xe014;</span></button>
+                        </div>
                     </li>
                 </ul>
+
             </div>
+
         </div>
+
+
+        <br>
+
     </div>
 
-    <div ui-view></div>
+    <asset:javascript src="/todo/todo.js"/>
+</div>
 
+</main><!-- /.container -->
 
-    <div class="footer" role="contentinfo"></div>
-
-    <div id="spinner" class="spinner" style="display:none;">
-        <g:message code="spinner.alt" default="Loading&hellip;"/>
-    </div>
-
-    <asset:javascript src="/todo/todo.js" />
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>
