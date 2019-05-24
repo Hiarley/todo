@@ -6,6 +6,5 @@
 
 angular.module("todo", [
     "todo.core",
-    "todo.index",
     "todo.todo"
 ]);

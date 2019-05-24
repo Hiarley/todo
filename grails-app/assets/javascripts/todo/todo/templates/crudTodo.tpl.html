@@ -1,0 +1,43 @@
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <div>
+            <br><br><br><br><br><br>
+
+            <h1 style="text-align: center;">Todo List</h1>
+
+            <form class="todo-form" ng-submit="vm.saveOrUpdateTodo()" ontimeupdate="">
+                <input name="descricao" id="descricao" ng-model="vm.todo.descricao" class="form-control form-control-lg"
+                       type="text" placeholder="
+O que precisa ser feito?"/>
+
+            </form>
+
+            <div id="list-todo" class="content scaffold-list" role="main" ng-cloak>
+
+                <ul class="list-group">
+                    <li ng-repeat="todo in vm.todoList" class="list-group-item">
+                        <div class="view">
+
+                            <label>{{todo.descricao}}</label>
+                            <button class="btn btn-primary" ng-click="vm.edit(todo.id)"><span
+                                    class="glyphicon">&#x270f;</span></button>
+
+                            <button class="btn btn-danger" ng-click="vm.delete(todo)"><span
+                                    class="glyphicon">&#xe014;</span></button>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <br>
+
+    </div>
+
+    </div>
+
+</main><!-- /.container -->

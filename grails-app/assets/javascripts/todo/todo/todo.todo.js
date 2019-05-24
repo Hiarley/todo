@@ -12,10 +12,13 @@
 
 angular.module("todo.todo", ["ui.router", "ngResource", "todo.core"]).config(config);
 
-function config($stateProvider) {
+function config($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('todo', {
-            url: "",
+            url: "/",
+            templateUrl: "/todo/todo/crudTodo.html",
             controller: "TodoController as vm"
         });
+
+    $urlRouterProvider.otherwise('/');
 }

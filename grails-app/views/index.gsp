@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,6 +8,9 @@
     <link rel="icon" href="../../../../favicon.ico">
 
     <title>Todo List Grails/AngularJS</title>
+    <script type="text/javascript">
+        window.contextPath = "${request.contextPath}";
+    </script>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -16,52 +19,18 @@
     <!-- Custom styles for this template -->
 </head>
 
-<body>
+<body ng-app="todo.todo" ng-controller="TodoController as vm">
+<div ui-view></div>
+
+
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Todo List Grails</a>
 
 </nav>
 
-<main role="main" class="container">
 
-    <div class="starter-template">
-        <div ng-app="todo.todo" ng-controller="TodoController as vm">
-            <br><br><br><br><br><br>
-            <h1 style="text-align: center;">Todo List</h1>
-            <form class="todo-form" ng-submit="vm.saveTodo()" ontimeupdate="">
-                <input  name="descricao" id="descricao" ng-model="vm.todo.descricao" class="form-control form-control-lg" type="text" placeholder="
-O que precisa ser feito?"/>
-
-
-            </form>
-            <div id="list-todo" class="content scaffold-list" role="main" ng-cloak>
-
-                <ul class="list-group">
-                    <li ng-repeat="todo in vm.todoList" class="list-group-item">
-                        <div class="view">
-
-                            <label>{{todo.descricao}}</label>
-                            <button class="btn btn-primary" ng-click="vm.edit(todo.id)"><span class="glyphicon">&#x270f;</span></button>
-
-                            <button class="btn btn-danger" ng-click="vm.delete(todo)"><span class="glyphicon">&#xe014;</span></button>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-
-        </div>
-
-
-        <br>
-
-    </div>
-
-    <asset:javascript src="/todo/todo.js"/>
-</div>
-
-</main><!-- /.container -->
+<asset:javascript src="/todo/todo.js"/>
 
 <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -5,39 +5,58 @@ angular
     .controller("TodoController", TodoController);
 
 
-function TodoController(Todo, $state, $stateParams, $scope) {
+function TodoController(Todo, $state, $stateParams, contextPath, $scope) {
     var vm = this;
+
+    var list = function () {
+        Todo.list({max: vm.max, offset: vm.offset}, function (data) {
+            vm.todoList = data;
+        });
+    };
+
+
+    vm.contextPath = contextPath;
 
     vm.todo = new Todo();
 
-    vm.saveTodo = function () {
+    vm.saveOrUpdateTodo = function () {
+        var isEdit = vm.todo.id != null;
 
-        vm.errors = undefined;
-        var edit = vm.todo.id == null;
-        if(edit) {
-            vm.todo.$save({}, function () {
-                location.reload();
-            }, function (response) {
-                var data = response.data;
-                if (data.hasOwnProperty('message')) {
-                    vm.errors = [data];
-                } else {
-                    vm.errors = data._embedded.errors;
-                }
-            });
+        vm.todo.finalizado = false;
+        if(isEdit){
+            update();
         }else{
-            vm.todo.$update(function() {
-                location.reload();
-            }, function(response) {
-                var data = response.data;
-                if (data.hasOwnProperty('message')) {
-                    vm.errors = [data];
-                } else {
-                    vm.errors = data._embedded.errors;
-                }
-            });
+            create();
         }
+        vm.todo = new Todo();
 
+        list();
+
+
+    };
+    var create = function () {
+
+        vm.todo.$save({}, function () {
+        }, function (response) {
+            var data = response.data;
+            if (data.hasOwnProperty('message')) {
+                vm.errors = [data];
+            } else {
+                vm.errors = data._embedded.errors;
+            }
+        });
+    }
+
+    var update = function(){
+        vm.todo.$update(function() {
+        }, function(response) {
+            var data = response.data;
+            if (data.hasOwnProperty('message')) {
+                vm.errors = [data];
+            } else {
+                vm.errors = data._embedded.errors;
+            }
+        });  
     };
 
     var max = 10, offset = 0;
@@ -46,15 +65,20 @@ function TodoController(Todo, $state, $stateParams, $scope) {
     });
 
 
-
     vm.edit = function (id) {
         vm.todo = Todo.get({id: id});
+    };
+
+
+    vm.markTodo = function (todo) {
+        alert(todo.finalizado);
+
     };
 
     vm.delete = function (todo) {
 
         todo.$delete(function () {
-            location.reload();
+            list();
         }, function () {
             //on error
         });
