@@ -30,13 +30,13 @@ function TodoController(Todo, $state, $stateParams, contextPath, $scope) {
         }
         vm.todo = new Todo();
 
-        list();
 
 
     };
     var create = function () {
 
         vm.todo.$save({}, function () {
+            list();
         }, function (response) {
             var data = response.data;
             if (data.hasOwnProperty('message')) {
@@ -49,6 +49,8 @@ function TodoController(Todo, $state, $stateParams, contextPath, $scope) {
 
     var update = function(){
         vm.todo.$update(function() {
+            list();
+
         }, function(response) {
             var data = response.data;
             if (data.hasOwnProperty('message')) {
@@ -59,7 +61,7 @@ function TodoController(Todo, $state, $stateParams, contextPath, $scope) {
         });  
     };
 
-    var max = 10, offset = 0;
+    var max = 100, offset = 0;
     Todo.list({max: max, offset: offset}, function (data) {
         vm.todoList = data;
     });
